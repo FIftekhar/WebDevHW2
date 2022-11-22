@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import React from 'react';
+import Card from './components/Card';
 
 
 const deck = [
@@ -34,6 +35,16 @@ function App() {
 		<div className="App">
 			<h1>The Flags Memory Game</h1>
 			<button onClick={reorderDeck}>New Game</button>
+
+			<div className='card-grid'>
+				{
+					cards.map(
+						card => (
+							<Card key={card.id} card={card}/>
+						)
+					)
+				}
+			</div>
 		</div>
 	);
 }
