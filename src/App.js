@@ -1,19 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import Card from './components/Card';
 
 
 const deck = [
-	{"src": "/img/ban.png"},
-	{"src": "/img/bri.png"},
-	{"src": "/img/can.png"},
-	{"src": "/img/ger.png"},
-	{"src": "/img/mor.png"},
-	{"src": "/img/sin.png"},
-	{"src": "/img/usa.png"},
-	{"src": "/img/yem.png"}
+	{"src": "/img/ban.png", matched: false },
+	{"src": "/img/bri.png", matched: false },
+	{"src": "/img/can.png", matched: false },
+	{"src": "/img/ger.png", matched: false },
+	{"src": "/img/mor.png", matched: false },
+	{"src": "/img/sin.png", matched: false },
+	{"src": "/img/usa.png", matched: false },
+	{"src": "/img/yem.png", matched: false }
 ]
 
 function App() {
@@ -31,6 +31,38 @@ function App() {
 		setTurns(0)
 	}
 
+	const handleChoice = (card) => {
+		choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+	}
+
+	useEffect(() => {
+		if(choiceOne && choiceTwo) {
+
+			if (choiceOne.src === choiceTwo.src){
+				setCards(prevCards => {
+					return prevCards.map(card => {
+						if(card.src === choiceOne.src){
+							return{...card, matched: true}
+						} else {
+							return card
+						}
+						})
+				})
+				resetTurn()
+			} 	else {
+				resetTurn()
+			}
+		}
+	}, [choiceOne, choiceTwo])
+
+	console.log(cards)
+
+	const resetTurn = () => {
+		setChoiceOne(null)
+		setChoiceTwo(null)
+		setTurns(prevTurns => prevTurns + 1)
+	}
+
 	console.log(cards, turns)
 
 	return (
@@ -42,7 +74,11 @@ function App() {
 				{
 					cards.map(
 						card => (
-							<Card key={card.id} card={card}/>
+							<Card 
+							key={card.id}
+							 card={card}
+							 handleChoice={handleChoice}
+							 />
 						)
 					)
 				}
