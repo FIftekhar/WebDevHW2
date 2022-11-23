@@ -6,7 +6,11 @@ export default function SingleCard({card}) {
             <div className="card">
 				<div>
 					<img className="card-face" src={card.src} />
-					<img className='card-back' src={"/img/globe.png"} />
+					<img 
+                    className='card-back' 
+                    src={"/img/globe.png"} 
+                    onClick={handleClick} 
+                    alt="card back" />
 				</div>
 			</div>
         </div>
