@@ -4,5 +4,6 @@ body {
 	font-size: 1.5em;
 	text-align: center;
 	background: lightskyblue;
+	background-image: "/img/map.jpg";
 	color: black;
 }
